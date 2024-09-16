@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package fonti40;
+
+message CanonicalTokenEventProperty {
+  string key = 1;
+  string value = 2;
+}
+
+message CanonicalTokenEvent {
+  string type = 1;
+  repeated CanonicalTokenEventProperty properties = 2;
+}
+
+message CanonicalToken {
+  enum  CanonicalTokenType {
+    UNKNOWN = 0;
+    PUNCTUATION = 1;
+    PRONUNCIATION = 2;
+    VOCAL_EVENT = 3;
+    INCIDENT_EVENT = 4;
+    GAP_EVENT = 5;
+  }
+  string word = 1;
+  float start_time = 2;
+  float end_time = 3;
+  CanonicalTokenType type = 4;
+  repeated CanonicalTokenEvent events = 5;
+}
+
+message CanonicalUtterance {
+    string id = 1;
+    string language = 2;
+    float start_time = 3;
+    float end_time = 4;
+    string note = 5;
+    repeated CanonicalToken words = 6;
+    repeated CanonicalToken words_before_start = 7;
+    repeated CanonicalToken words_after_end = 8;
+    string speaker_id = 9;
+}
+
+message CanonicalTranscription {
+  repeated CanonicalUtterance utterances = 2;
+}
